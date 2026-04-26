@@ -1,12 +1,13 @@
 import axios from "axios";
 
-// Using hardcoded local WiFi IP to bypass stubborn Expo .env caching!
-const API_BASE_URL = "http://192.168.1.101:8000/api";
+// Using environment variable for dynamic IP configuration
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "true",
   },
 });
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
-// @ts-ignore
-import { Camera, CameraView, useCameraPermissions } from 'expo-camera'; // Force IDE re-parse
+import { Camera, CameraView, useCameraPermissions } from 'expo-camera';
 
 interface LiveCameraProps {
   deviceId?: string | null;
@@ -38,11 +37,11 @@ export default function LiveCamera({ deviceId, label }: LiveCameraProps) {
 
   return (
     <View className="flex-1 w-full bg-black relative">
-      <CameraView 
-        className="flex-1" 
+      <CameraView
+        className="flex-1"
         facing={facing}
       />
-      
+
       {/* Target Reticle Overlay - Placeholder for TFJS Bounding Boxes */}
       <View className="absolute inset-0 items-center justify-center" pointerEvents="none">
         <View className="border-2 border-red-500/50 w-3/4 h-1/2 rounded-md" />
@@ -56,7 +55,7 @@ export default function LiveCamera({ deviceId, label }: LiveCameraProps) {
           Scanning Viewport...
         </Text>
       </View>
-      
+
       {label && (
         <View className="absolute bottom-0 w-full bg-black/60 p-2">
           <Text className="text-white font-bold text-center text-sm">{label}</Text>
