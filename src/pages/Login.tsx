@@ -1,0 +1,90 @@
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, SafeAreaView, ActivityIndicator, KeyboardAvoidingView, Platform } from "react-native";
+import { authAPI } from "../service/api";
+import { useAutoVision } from "../hooks/useAutoVision";
+
+interface LoginProps {
+  setUser: (user: any) => void;
+  switchToSignup: () => void;
+}
+
+export default function Login({ setUser, switchToSignup }: LoginProps) {
+  const { formData, handleInputChange } = useAutoVision();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    if (formData.email && formData.password) {
+      setLoading(true);
+      try {
+        await authAPI.login(formData.email, formData.password);
+        setUser({ name: formData.email });
+      } catch (err: any) {
+        if (err.response) {
+          setError("Invalid credentials");
+        } else {
+          setError("Error connecting to server");
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  return (
+    <SafeAreaView className="flex-1 bg-slate-900 justify-center">
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} className="flex-1 justify-center px-6">
+        
+        <View className="mb-10 mt-10">
+          <Text className="text-4xl font-extrabold text-white text-center tracking-wide">AutoVision</Text>
+          <Text className="text-slate-400 text-center mt-3 text-base">
+            AI Vehicle Detection & Model Classification System
+          </Text>
+        </View>
+
+        <View className="bg-white p-6 rounded-2xl shadow-lg">
+          <Text className="text-2xl font-bold text-slate-800 mb-6 text-center">Sign In</Text>
+          
+          {error ? <Text className="text-red-500 text-center mb-4 font-medium">{error}</Text> : null}
+
+          <View className="space-y-4 mb-4" style={{ gap: 16 }}>
+            <TextInput
+              className="h-14 bg-gray-50 border border-gray-200 rounded-xl px-4 text-slate-900 text-base"
+              placeholder="Admin Email"
+              placeholderTextColor="#9ca3af"
+              value={formData.email || ""}
+              onChangeText={(text: string) => handleInputChange(text, "email")}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+
+            <TextInput
+              className="h-14 bg-gray-50 border border-gray-200 rounded-xl px-4 text-slate-900 text-base"
+              placeholder="Password"
+              placeholderTextColor="#9ca3af"
+              value={formData.password || ""}
+              onChangeText={(text: string) => handleInputChange(text, "password")}
+              secureTextEntry
+            />
+          </View>
+
+          <TouchableOpacity 
+            className="h-14 bg-blue-600 rounded-xl items-center justify-center mt-2 flex-row"
+            onPress={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? <ActivityIndicator color="#fff" /> : <Text className="text-white font-bold text-lg">Access System</Text>}
+          </TouchableOpacity>
+        </View>
+
+        <View className="mt-8 flex-row justify-center">
+          <Text className="text-slate-400">Don't have an account? </Text>
+          <TouchableOpacity onPress={switchToSignup}>
+            <Text className="text-blue-400 font-bold">Sign Up</Text>
+          </TouchableOpacity>
+        </View>
+
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
+}
