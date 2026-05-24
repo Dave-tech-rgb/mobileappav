@@ -35,4 +35,19 @@ export const deviceAPI = {
   updateStatus: (id: string | number, status: string) => api.patch(`/devices/${id}/`, { status }),
 };
 
+export const detectionAPI = {
+  detect: (formData: FormData) => api.post("/detection/detect", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }),
+  getStats: () => api.get("/detection/stats"),
+  getLogs: () => api.get("/detection/logs"),
+  saveSession: (formData: FormData) => api.post("/detection/save", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }),
+};
+
 export default api;
