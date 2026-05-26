@@ -3,9 +3,6 @@
     "name": "AutoVision",
     "slug": "auto-vision-mobile",
     "version": "1.0.0",
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
     "orientation": "portrait",
     "scheme": "autovision",
     "icon": "./assets/icon.png",
