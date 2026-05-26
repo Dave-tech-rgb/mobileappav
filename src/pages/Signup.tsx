@@ -22,8 +22,10 @@ export default function Signup({ setUser, switchToLogin }: SignupProps) {
       } catch (err: any) {
         if (err.response) {
           setError(err.response.data.error || "Signup failed");
+        } else if (err.code === "ECONNABORTED") {
+          setError("Server is starting up. Please wait 30 seconds and try again.");
         } else {
-          setError("Error connecting to server");
+          setError("Cannot reach server. Check your connection or try again shortly.");
         }
       } finally {
         setLoading(false);

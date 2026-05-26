@@ -5,6 +5,7 @@ const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || "http://127.0.0.1:8000/a
 
 const api = axios.create({
   baseURL: API_BASE_URL,
+  timeout: 60000,
   headers: {
     "Content-Type": "application/json",
     "ngrok-skip-browser-warning": "true",

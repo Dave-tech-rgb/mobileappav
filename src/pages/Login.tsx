@@ -21,9 +21,11 @@ export default function Login({ setUser, switchToSignup }: LoginProps) {
         setUser({ name: formData.email });
       } catch (err: any) {
         if (err.response) {
-          setError("Invalid credentials");
+          setError("Invalid credentials. Check your email and password.");
+        } else if (err.code === "ECONNABORTED") {
+          setError("Server is starting up. Please wait 30 seconds and try again.");
         } else {
-          setError("Error connecting to server");
+          setError("Cannot reach server. Check your connection or try again shortly.");
         }
       } finally {
         setLoading(false);
