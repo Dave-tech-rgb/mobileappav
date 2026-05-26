@@ -3,24 +3,38 @@
     "name": "AutoVision",
     "slug": "auto-vision-mobile",
     "version": "1.0.0",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
     "orientation": "portrait",
+    "scheme": "autovision",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0f172a"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.autovision.mobile"
     },
     "android": {
+      "package": "com.autovision.mobile",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
-    "web": {},
+    "web": {
+      "favicon": "./assets/icon.png"
+    },
     "plugins": [
       [
         "expo-camera",
@@ -28,6 +42,12 @@
           "cameraPermission": "Allow AutoVision to access your camera."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "b88da8ed-1cdb-46a2-8e58-38aa4c5f04a1"
+      }
+    },
+    "owner": "yanskii-tzy"
   }
 }
